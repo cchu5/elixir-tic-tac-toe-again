@@ -51,6 +51,8 @@ defmodule TicTacToe do
 			# Diagonal
 			in_a_row(board, [1,5,9], player) -> {:ok, board, String.to_atom("winner_#{player}")}
 			in_a_row(board, [3,5,7], player) -> {:ok, board, String.to_atom("winner_#{player}")}
+			# Draw
+			all_spaces_taken(board) -> {:ok, board, :draw}
       # In progress game
       board -> {:ok, board, :continue}
     end
@@ -60,5 +62,11 @@ defmodule TicTacToe do
 		board
 		|> Enum.map(fn {position, value} -> if position in positions, do: value end)
 		|> Enum.filter(fn value -> value != nil end) == [player, player, player]
+	end
+
+	defp all_spaces_taken(board) do
+		board
+		|> Enum.filter(fn {_, value} -> value == :empty end)
+		|> length <= 1
 	end
 end
