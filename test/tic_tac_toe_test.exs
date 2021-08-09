@@ -19,5 +19,17 @@ defmodule TicTacToeTest do
 
       assert TicTacToe.play_at(board, 1, :o) == {:ok, expected_board, :continue} 
     end 
+	
+    test "returns an error with position taken" do
+      board = TestHelper.create_populated_board([{1,:o}]) 
+			expected = TicTacToe.play_at(board, 1, :x)
+      assert expected == {:error, :taken} 
+    end 
+
+		test "returns an error with invalid position played" do
+			board = TicTacToe.new_board()
+			
+			assert TicTacToe.play_at(board, 10, :o) == {:error, :invalid_position}
+		end
   end
 end
