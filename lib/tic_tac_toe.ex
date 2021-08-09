@@ -1,11 +1,4 @@
 defmodule TicTacToe do
-  @moduledoc """
-  Documentation for `TicTacToe`.
-  """
-
-  @doc """
-  """
-  
   def new_board do
     for square <- 1..9, into: %{}, do: {square, :empty} 
   end
@@ -39,6 +32,8 @@ defmodule TicTacToe do
   end
 
   defp check_progress(board, player) do
+    next_player = if player == :o, do: :x, else: :o
+
     cond do
 			# Horizontal
 			in_a_row(board, [1,2,3], player) -> {:ok, board, String.to_atom("winner_#{player}")} 
@@ -54,7 +49,7 @@ defmodule TicTacToe do
 			# Draw
 			all_spaces_taken(board) -> {:ok, board, :draw}
       # In progress game
-      board -> {:ok, board, :continue}
+      board -> {:ok, board, next_player, :continue}
     end
   end
 
