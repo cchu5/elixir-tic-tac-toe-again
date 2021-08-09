@@ -1,5 +1,6 @@
 defmodule TicTacToeTest do
   use ExUnit.Case
+	import TestHelper
   doctest TicTacToe
 
   describe "new_board tests: " do
@@ -15,12 +16,22 @@ defmodule TicTacToeTest do
   describe "play_at tests: " do
     test "returns a board with :continue" do
       board = TicTacToe.new_board()
-      expected_board_o = TestHelper.create_populated_board([{1,:o}]) 
-      expected_board_x = TestHelper.create_populated_board([{1,:x}]) 
+      expected_board_o = create_populated_board([{1,:o}]) 
+      expected_board_x = create_populated_board([{1,:x}]) 
 
       assert TicTacToe.play_at(board, 1, :o) == {:ok, expected_board_o, :continue} 
 			assert TicTacToe.play_at(board, 1, :x) == {:ok, expected_board_x, :continue}
     end 
+
+		test "returns a player has won" do
+      mapped_board_for_horizontal_o_win = 
+        create_populated_board([{1,:o}, {2,:o}, {4,:x}, {5,:x}]) 
+      mapped_board_for_horizontal_x_win = 
+        create_populated_board([{1,:o}, {2,:o}, {4,:x}, {5,:x}]) 
+
+			assert {:ok, _, :winner_o} = TicTacToe.play_at(mapped_board_for_horizontal_o_win, 3, :o)
+			assert {:ok, _, :winner_x} = TicTacToe.play_at(mapped_board_for_horizontal_x_win, 6, :x) 
+		end
 
 		test "returns an error with invalid player" do
 			board = TicTacToe.new_board()
