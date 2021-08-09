@@ -11,4 +11,13 @@ defmodule TicTacToeTest do
       assert board |> Enum.fetch(0) == {:ok, {1, :empty}}
     end
   end
+
+  describe "play_at tests: " do
+    test "returns a board with :continue" do
+      board = TicTacToe.new_board()
+      expected_board = TestHelper.create_populated_board([{1,:o}]) 
+
+      assert TicTacToe.play_at(board, 1, :o) == {:ok, expected_board, :continue} 
+    end 
+  end
 end
