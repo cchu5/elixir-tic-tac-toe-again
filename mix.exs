@@ -3,7 +3,7 @@ defmodule TicTacToeNew.MixProject do
 
   def project do
     [
-      app: :tic_tac_toe_new,
+      app: :tic_tac_toe,
       version: "0.1.0",
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
