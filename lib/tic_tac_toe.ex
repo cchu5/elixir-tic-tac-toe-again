@@ -48,6 +48,9 @@ defmodule TicTacToe do
 			in_a_row(board, [1,4,7], player) -> {:ok, board, String.to_atom("winner_#{player}")}
 			in_a_row(board, [2,5,8], player) -> {:ok, board, String.to_atom("winner_#{player}")}
 			in_a_row(board, [3,6,9], player) -> {:ok, board, String.to_atom("winner_#{player}")}
+			# Diagonal
+			in_a_row(board, [1,5,9], player) -> {:ok, board, String.to_atom("winner_#{player}")}
+			in_a_row(board, [3,5,7], player) -> {:ok, board, String.to_atom("winner_#{player}")}
       # In progress game
       board -> {:ok, board, :continue}
     end

@@ -43,6 +43,16 @@ defmodule TicTacToeTest do
 			assert {:ok, _, :winner_x} = TicTacToe.play_at(mapped_board_for_vertical_x_win, 8, :x) 
 		end
 
+		test "returns a player has won with a diagonal row" do
+      mapped_board_for_diagonal_o_win = 
+        create_populated_board([{1,:o}, {2,:x}, {5,:o}, {3,:x}]) 
+      mapped_board_for_diagonal_x_win = 
+        create_populated_board([{1,:o}, {3,:x}, {2,:o}, {5,:x}]) 
+
+			assert {:ok, _, :winner_o} = TicTacToe.play_at(mapped_board_for_diagonal_o_win, 9, :o)
+			assert {:ok, _, :winner_x} = TicTacToe.play_at(mapped_board_for_diagonal_x_win, 7, :x) 
+		end
+
 		test "returns an error with invalid player" do
 			board = TicTacToe.new_board()
 			
