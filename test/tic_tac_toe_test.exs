@@ -15,15 +15,23 @@ defmodule TicTacToeTest do
   describe "play_at tests: " do
     test "returns a board with :continue" do
       board = TicTacToe.new_board()
-      expected_board = TestHelper.create_populated_board([{1,:o}]) 
+      expected_board_o = TestHelper.create_populated_board([{1,:o}]) 
+      expected_board_x = TestHelper.create_populated_board([{1,:x}]) 
 
-      assert TicTacToe.play_at(board, 1, :o) == {:ok, expected_board, :continue} 
+      assert TicTacToe.play_at(board, 1, :o) == {:ok, expected_board_o, :continue} 
+			assert TicTacToe.play_at(board, 1, :x) == {:ok, expected_board_x, :continue}
     end 
+
+		test "returns an error with invalid player" do
+			board = TicTacToe.new_board()
+			
+			assert TicTacToe.play_at(board, 1, :z) == {:error, :invalid_player}
+		end
 	
     test "returns an error with position taken" do
       board = TestHelper.create_populated_board([{1,:o}]) 
-			expected = TicTacToe.play_at(board, 1, :x)
-      assert expected == {:error, :taken} 
+
+      assert TicTacToe.play_at(board, 1, :x) == {:error, :taken} 
     end 
 
 		test "returns an error with invalid position played" do

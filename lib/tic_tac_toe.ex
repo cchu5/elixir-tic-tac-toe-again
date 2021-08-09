@@ -11,7 +11,8 @@ defmodule TicTacToe do
   end
 
   def play_at(board, position, player) do
-    with {:ok, new_board} <- choose_square(board, position, player),
+    with {:ok, valid_player} <- check_player(player),
+			 	 {:ok, new_board} <- choose_square(board, position, valid_player),
          {:ok, progress} <- check_progress(new_board),
       do: progress
   end
@@ -19,6 +20,14 @@ defmodule TicTacToe do
 # -------------------------------------------------------------
 # --------------------Private----------------------------------
 # -------------------------------------------------------------
+
+	defp check_player(player) do
+		case player do
+			:x -> {:ok, player}
+			:o -> {:ok, player}
+			_ -> {:error, :invalid_player}
+		end
+	end
 
   defp choose_square(board, position, player) do
     case board[position] do
