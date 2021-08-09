@@ -1,4 +1,8 @@
 defmodule CLI do
+  @commands [
+    {:start, "Begin a game of Tic Tac Toe"},
+    {:quit, "Quits Tic Tac Toe"}
+  ]
   
   def main do
     IO.puts("Welcome to Tic Tac Toe!")
@@ -18,7 +22,13 @@ defmodule CLI do
 
   def execute_command(command) do
     case command do
+      "start" ->
+        IO.puts("Let's go")
       "quit" -> IO.puts("Good bye")
+      _ -> 
+        IO.puts("Invalid command")
+        print_help_msg(@commands)
+        receive_command()
     end
   end
 end

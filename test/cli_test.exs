@@ -16,7 +16,21 @@ defmodule CLITest do
   describe "receive_command tests: " do
     test "quit command returns Good bye" do
       expected = capture_io([input: "quit", capture_prompt: false], fn -> CLI.receive_command() end)
-        |> String.contains?("Good bye")
+      |> String.contains?("Good bye")
+
+      assert expected == true
+    end
+
+    test "start command returns Let's go" do
+      expected = capture_io([input: "start", capture_prompt: false], fn -> CLI.receive_command() end)
+      |> String.contains?("Let's go")
+
+      assert expected == true
+    end
+
+    test "random string command returns Invalid command" do
+      expected = capture_io([input: "random\nquit", capture_prompt: false], fn -> CLI.receive_command() end)
+      |> String.contains?("Invalid command")
 
       assert expected == true
     end
