@@ -26,7 +26,7 @@ defmodule TicTacToeNew.MixProject do
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
     ]
   end
-  
+
   defp escript do
     [main_module: CLI]
   end

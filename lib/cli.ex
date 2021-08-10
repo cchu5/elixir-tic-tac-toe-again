@@ -3,7 +3,7 @@ defmodule CLI do
     {:start, "Begin a game of Tic Tac Toe"},
     {:quit, "Quits Tic Tac Toe"}
   ]
-  
+
   def main do
     IO.puts("Welcome to Tic Tac Toe!")
   end
@@ -15,8 +15,8 @@ defmodule CLI do
 
   def receive_command do
     IO.gets("> ")
-    |> String.trim
-    |> String.downcase
+    |> String.trim()
+    |> String.downcase()
     |> execute_command
   end
 
@@ -24,8 +24,11 @@ defmodule CLI do
     case command do
       "start" ->
         IO.puts("Let's go")
-      "quit" -> IO.puts("Good bye")
-      _ -> 
+
+      "quit" ->
+        IO.puts("Good bye")
+
+      _ ->
         IO.puts("Invalid command")
         print_help_msg(@commands)
         receive_command()
