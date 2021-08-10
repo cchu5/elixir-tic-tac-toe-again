@@ -19,8 +19,8 @@ defmodule TicTacToeTest do
       expected_board_o = create_populated_board([{1, :o}])
       expected_board_x = create_populated_board([{1, :x}])
 
-      assert TicTacToe.play_at(board, 1, :o) == {:ok, expected_board_o, :x, :continue}
-      assert TicTacToe.play_at(board, 1, :x) == {:ok, expected_board_x, :o, :continue}
+      assert TicTacToe.play_at(board, 1, :o) == {:ok, expected_board_o, :continue}
+      assert TicTacToe.play_at(board, 1, :x) == {:ok, expected_board_x, :continue}
     end
 
     test "returns a player has won with a horizontal row" do
