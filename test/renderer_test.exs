@@ -16,7 +16,7 @@ defmodule RendererTest do
        quit - Quits Tic Tac Toe
       """
 
-      assert {:ok, result} = Renderer.handle_command("start")    
+      assert {:ok, result} = Renderer.handle_command("start")
       assert result == expected
     end
 
@@ -59,7 +59,7 @@ defmodule RendererTest do
       Renderer.handle_command("2")
       Renderer.handle_command("5")
 
-      {_, result} = Renderer.handle_command("3") 
+      {_, result} = Renderer.handle_command("3")
       assert result == expected
     end
   end
