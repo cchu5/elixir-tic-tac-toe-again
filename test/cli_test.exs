@@ -27,17 +27,6 @@ defmodule CLITest do
     end
   end
 
-  describe "print_help_msg tests: " do
-    test "prints initial commands" do
-      expected = """
-      These are the following commands:
-       Test - command
-      """
-
-      assert capture_io(fn -> CLI.print_help_msg([{"Test", "command"}]) end) == expected
-    end
-  end
-
   describe "receive_command/1 tests: " do
     test "quit command returns Good bye" do
       expected =
