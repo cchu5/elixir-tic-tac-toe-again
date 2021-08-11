@@ -16,7 +16,8 @@ defmodule RendererTest do
        quit - Quits Tic Tac Toe
       """
 
-      assert Renderer.handle_command("start") == expected
+      assert {:ok, result} = Renderer.handle_command("start")    
+      assert result == expected
     end
 
     test "begin outputs expected results string" do
@@ -27,7 +28,39 @@ defmodule RendererTest do
        quit - Quits Tic Tac Toe
       """
 
-      assert Renderer.handle_command("begin") == expected
+      assert {:ok, result} = Renderer.handle_command("begin")
+      assert result == expected
+    end
+
+    test "1 outputs expected results string" do
+      expected = """
+       o | 2 | 3 
+       4 | 5 | 6 
+       7 | 8 | 9 
+      Player x's move:
+      """
+
+      Renderer.handle_command("start")
+      assert {_, result} = Renderer.handle_command("1")
+      assert result == expected
+    end
+
+    test "O is winner output" do
+      expected = """
+       o | o | o 
+       x | x | 6 
+       7 | 8 | 9 
+      Player O wins! Thanks for playing.
+      """
+
+      Renderer.handle_command("start")
+      Renderer.handle_command("1")
+      Renderer.handle_command("4")
+      Renderer.handle_command("2")
+      Renderer.handle_command("5")
+
+      {_, result} = Renderer.handle_command("3") 
+      assert result == expected
     end
   end
 end
