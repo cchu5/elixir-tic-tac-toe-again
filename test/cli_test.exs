@@ -3,23 +3,28 @@ defmodule CLITest do
   import ExUnit.CaptureIO
 
   describe "main tests: " do
-		test "Player O wins" do
-			io_output = capture_io([input: "start\n1\n4\n2\n5\n3", capture_prompt: false], fn -> CLI.main() end)
-		
-			assert String.contains?(io_output, "Player O wins! Thanks for playing.") == true	
-		end
+    test "Player O wins" do
+      io_output =
+        capture_io([input: "start\n1\n4\n2\n5\n3", capture_prompt: false], fn -> CLI.main() end)
 
-		test "Player X wins" do
-			io_output = capture_io([input: "start\n1\n4\n2\n5\n9\n6", capture_prompt: false], fn -> CLI.main() end)
-			
-			assert String.contains?(io_output, "Player X wins! Thanks for playing.") == true
-		end
+      assert String.contains?(io_output, "Player O wins! Thanks for playing.") == true
+    end
 
-		test "Game ends with a draw" do
-			io_output = capture_io([input: "start\n1\n2\n3\n5\n4\n7\n6\n9\n8", capture_prompt: false], fn -> CLI.main() end)
+    test "Player X wins" do
+      io_output =
+        capture_io([input: "start\n1\n4\n2\n5\n9\n6", capture_prompt: false], fn -> CLI.main() end)
 
-			assert String.contains?(io_output, "It's a draw, thanks for playing.")
-		end
+      assert String.contains?(io_output, "Player X wins! Thanks for playing.") == true
+    end
+
+    test "Game ends with a draw" do
+      io_output =
+        capture_io([input: "start\n1\n2\n3\n5\n4\n7\n6\n9\n8", capture_prompt: false], fn ->
+          CLI.main()
+        end)
+
+      assert String.contains?(io_output, "It's a draw, thanks for playing.")
+    end
   end
 
   describe "print_help_msg tests: " do
@@ -54,8 +59,11 @@ defmodule CLITest do
   describe "receive_command/2 tests: " do
     test "1..9 command returns next player's move" do
       board = TicTacToe.new_board()
+
       expected =
-        capture_io([input: "1\nquit", capture_prompt: false], fn -> CLI.receive_command(board, :o) end)
+        capture_io([input: "1\nquit", capture_prompt: false], fn ->
+          CLI.receive_command(board, :o)
+        end)
         |> String.contains?("Player x's move:")
 
       assert expected == true
