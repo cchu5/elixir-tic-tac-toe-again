@@ -113,7 +113,11 @@ defmodule Renderer do
 
   defp format_output(string_list) do
     output = Enum.join(string_list, "")
-    {:ok, output}
+    if String.contains?(output, ["thanks", "Thanks"]) do
+      {:done, output}
+    else
+      {:ok, output}
+    end
   end
 
   defp play_move(position) do

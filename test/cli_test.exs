@@ -26,36 +26,4 @@ defmodule CLITest do
       assert String.contains?(io_output, "It's a draw, thanks for playing.")
     end
   end
-
-  describe "receive_command/1 tests: " do
-    test "quit command returns Good bye" do
-      expected =
-        capture_io([input: "quit", capture_prompt: false], fn -> CLI.receive_command() end)
-        |> String.contains?("Good bye")
-
-      assert expected == true
-    end
-
-    test "random string command returns Invalid command" do
-      expected =
-        capture_io([input: "random\nquit", capture_prompt: false], fn -> CLI.receive_command() end)
-        |> String.contains?("Invalid command")
-
-      assert expected == true
-    end
-  end
-
-  describe "receive_command/2 tests: " do
-    test "1..9 command returns next player's move" do
-      board = TicTacToe.new_board()
-
-      expected =
-        capture_io([input: "1\nquit", capture_prompt: false], fn ->
-          CLI.receive_command(board, :o)
-        end)
-        |> String.contains?("Player x's move:")
-
-      assert expected == true
-    end
-  end
 end
